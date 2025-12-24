@@ -1,6 +1,6 @@
-const { notes } = require("../models/note");
+const { notes } = require("../models/noteModel");
 import type { Request, Response } from "express";
-import type { Note } from "../models/note";
+import type { Note } from "../models/notesModel";
 
 // GET all notes
 
