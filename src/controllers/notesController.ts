@@ -113,4 +113,34 @@ const deleteNote = (req: Request, res: Response) => {
   }
 };
 
-module.exports = { getNotes, getNoteById, createNote, updateNote, deleteNote };
+// SEARCH notes by keyword
+const searchNotes = (req: Request, res: Response) => {
+  try {
+    const { keyword } = req.query;
+
+    if (!keyword || typeof keyword !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Keyword query parameter is required" });
+    }
+
+    const results = notes.filter(
+      (note: Note) =>
+        note.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        note.content.toLowerCase().includes(keyword.toLowerCase())
+    );
+
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = {
+  getNotes,
+  getNoteById,
+  createNote,
+  updateNote,
+  deleteNote,
+  searchNotes,
+};
